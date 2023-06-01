@@ -1,0 +1,24 @@
+body {
+    background: linear-gradient(to right, #e9ecef, #f4f6f9);
+}
+  
+  #banner {
+    border-radius: 0px 0px 1rem 1rem;
+    background: linear-gradient(to right, #00a8ff, #007bff);
+  }
+  
+  section {
+    padding: 2rem 0;
+  }
+  
+  footer {
+    background-color: #343a40;
+    color: #fff;
+  }
+
+  .login-link{
+    font-size: 27px;
+    color: black;
+    padding: 5px;
+    display: inline-block;
+  }
