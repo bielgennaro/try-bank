@@ -1,28 +1,14 @@
 const express = require("express");
-const bodyParser = require("body-parser");
+const usuarioRoutes = require("./routes/usuarioRoutes");
 
-const server = express();
+const app = express();
 const port = 3000;
 
-server.use(bodyParser.json());
-server.use(
-	bodyParser.urlencoded({
-		extended: true,
-	})
-);
+app.use(express.json());
+app.use("/usuarios", usuarioRoutes);
 
-server.get("/", (request, response) => {
-	response.json({ info: "Teste" });
+app.listen(port, () => {
+	console.log(`Servidor rodando em http://localhost:${port}`);
 });
 
-/*
-server.get("/users", db.getUsers);
-server.get("/users/:id", db.getUserById);
-server.post("/users", db.createUser);
-server.put("/users/:id", db.updateUser);
-server.delete("/users/:id", db.deleteUser);
-*/
-
-server.listen(port, () => {
-	console.log(`Conectado na porta ${port}.`);
-});
+module.exports = app;
