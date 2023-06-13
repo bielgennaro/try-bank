@@ -8,6 +8,7 @@
     "sequelize": "^6.32.0"
   },
   "scripts": {
+    "start": "node src/server.js",
     "dev": "nodemon server.js"
   },
   "name": "banco-frontend",
