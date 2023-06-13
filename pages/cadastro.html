@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Página de Login</title>
+		<title>Cadastro de Usuário</title>
 		<link
 			rel="stylesheet"
 			href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
@@ -12,13 +12,22 @@
 			rel="stylesheet"
 			href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
 		/>
-		<link href="../css/login.css" rel="stylesheet" />
+		<link href="../css/cadastro.css" rel="stylesheet" />
 	</head>
 
 	<body>
-		<div class="container login-container">
-			<h2 class="text-center">Login</h2>
-			<form action="/usuarios/login" method="POST">
+		<div class="container cadastro-container">
+			<h2 class="text-center">Cadastro de Usuário</h2>
+			<form action="../src/server.js" method="POST">
+				<div class="form-group">
+					<label for="nome"><i class="fa fa-user"></i> Nome:</label>
+					<input
+						type="text"
+						class="form-control"
+						id="nome"
+						placeholder="Digite seu nome"
+					/>
+				</div>
 				<div class="form-group">
 					<label for="email"><i class="fa fa-envelope"></i> Email:</label>
 					<input
@@ -26,8 +35,6 @@
 						class="form-control"
 						id="email"
 						placeholder="Digite seu email"
-						name="email"
-						required
 					/>
 				</div>
 				<div class="form-group">
@@ -37,26 +44,13 @@
 						class="form-control"
 						id="senha"
 						placeholder="Digite sua senha"
-						name="senha"
-						required
 					/>
 				</div>
-				<button type="submit" class="btn btn-primary btn-block">Entrar</button>
-				<a href="cadastro.html" class="btn btn-link btn-block">Cadastre-se</a>
-				<button
-					type="button"
-					id="recover-password"
-					class="btn btn-link btn-block"
-					disabled="true"
-					onclick="recoverPassword()"
-				>
-					Recuperar senha
+				<button type="submit" class="btn btn-primary btn-block">
+					Cadastrar
 				</button>
 			</form>
 		</div>
-
-		<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 		<script src="../index.js"></script>
 	</body>
 </html>
