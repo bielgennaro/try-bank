@@ -1,3 +1,16 @@
+const mysql = require('mysql')
+
+// Configurações da conexão do banco de dados
+const dbConfig = {
+  host: 'localhost',
+  user: 'root',
+  password: '123456',
+  database: 'mysql',
+  port: 3000,
+}
+// Criação do pool de conexões
+const pool = mysql.createPool(dbConfig)
+
 const User = {
   async create({ name, email, password }) {
     try {
@@ -59,4 +72,4 @@ const User = {
   },
 }
 
-module.exports = User()
+module.exports = User
