@@ -1,63 +1,62 @@
 const User = {
-	async create({ name, email, password }) {
-		const query =
-			"INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING *";
-		const values = [name, email, password];
+  async create({ name, email, password }) {
+    try {
+      const query = 'INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING *'
+      const values = [name, email, password]
+      console.log(pool)
+      const result = await pool.query(query, values)
+      return result.rows[0]
+    } catch (error) {
+      console.log(error)
+      throw error
+    }
+  },
 
-		try {
-			const result = await pool.query(query, values);
-			return result.rows[0];
-		} catch (error) {
-			throw error;
-		}
-	},
+  async findOne({ email, password }) {
+    const query = 'SELECT * FROM users WHERE email = $1 AND password = $2'
+    const values = [email, password]
 
-	async findOne({ email, password }) {
-		const query = "SELECT * FROM users WHERE email = $1 AND password = $2";
-		const values = [email, password];
+    try {
+      const result = await pool.query(query, values)
+      return result.rows[0]
+    } catch (error) {
+      throw error
+    }
+  },
 
-		try {
-			const result = await pool.query(query, values);
-			return result.rows[0];
-		} catch (error) {
-			throw error;
-		}
-	},
+  async findAll() {
+    const query = 'SELECT * FROM users'
 
-	async findAll() {
-		const query = "SELECT * FROM users";
+    try {
+      const result = await pool.query(query)
+      return result.rows
+    } catch (error) {
+      throw error
+    }
+  },
 
-		try {
-			const result = await pool.query(query);
-			return result.rows;
-		} catch (error) {
-			throw error;
-		}
-	},
+  async update(id, { name, email, password }) {
+    const query = 'UPDATE users SET name = $1, email = $2, password = $3 WHERE id = $4 RETURNING *'
+    const values = [name, email, password, id]
 
-	async update(id, { name, email, password }) {
-		const query =
-			"UPDATE users SET name = $1, email = $2, password = $3 WHERE id = $4 RETURNING *";
-		const values = [name, email, password, id];
+    try {
+      const result = await pool.query(query, values)
+      return result.rows[0]
+    } catch (error) {
+      throw error
+    }
+  },
 
-		try {
-			const result = await pool.query(query, values);
-			return result.rows[0];
-		} catch (error) {
-			throw error;
-		}
-	},
+  async delete(id) {
+    const query = 'DELETE FROM users WHERE id = $1'
+    const values = [id]
 
-	async delete(id) {
-		const query = "DELETE FROM users WHERE id = $1";
-		const values = [id];
+    try {
+      await pool.query(query, values)
+    } catch (error) {
+      throw error
+    }
+  },
+}
 
-		try {
-			await pool.query(query, values);
-		} catch (error) {
-			throw error;
-		}
-	},
-};
-
-module.exports = User;
+module.exports = User()
