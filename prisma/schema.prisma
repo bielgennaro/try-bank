@@ -1,6 +1,6 @@
 datasource db {
   provider = "postgresql"
-  url      = "postgre://root:123456@localhost:5432/database"
+  url      = "postgres://root:password@localhost:5432/database"
 }
 
 generator client {
