@@ -1,5 +1,4 @@
 const { PrismaClient } = require('@prisma/client');
-
 const prisma = new PrismaClient();
 
 const createUser = async (req, res) => {
@@ -14,7 +13,7 @@ const createUser = async (req, res) => {
     });
     res.status(201).json(user);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ message: 'Email ja cadastrado' });
   }
 };
 

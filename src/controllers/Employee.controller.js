@@ -4,11 +4,12 @@ const prisma = new PrismaClient();
 
 const createEmployee = async (req, res) => {
   try {
-    const { name, isWorking, employerId, commission } = req.body;
+    const { name, isWorking, employerId, commission, email } = req.body;
     const employee = await prisma.employee.create({
       data: {
         name,
         isWorking,
+        email,
         employer: {
           connect: { id: Number(employerId) },
         },
@@ -25,7 +26,7 @@ const getEmployees = async (req, res) => {
   try {
     const employees = await prisma.employee.findMany({
       include: {
-        employer: true,
+        Employer: true,
       },
     });
     res.json(employees);
@@ -66,7 +67,7 @@ const updateEmployee = async (req, res) => {
       data: {
         name,
         isWorking,
-        employer: {
+        Employer: {
           connect: { id: Number(employerId) },
         },
         commission,
