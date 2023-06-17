@@ -1,5 +1,4 @@
-let express = require('express')
-const { PrismaClient } = require('@prisma/client');
+const express = require('express')
 
 
 const port = 3000
@@ -10,12 +9,12 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
 // Rotas
-const Routes = require('./routes/Routes')
-app.use('/users', Routes)
-app.use('/employees', Routes)
-app.use('/employers', Routes)
+const Antedeguemon = require('./routes/Routes')
+app.use('/users', Antedeguemon)
+app.use('/employees', Antedeguemon)
+app.use('/employers', Antedeguemon)
 
 // Iniciando o servidor
 app.listen(port, () => {
-  console.log('Servidor rodando na porta 3000.')
+  console.log('Ta daora chefe 😎👍.')
 })

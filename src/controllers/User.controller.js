@@ -13,7 +13,7 @@ const createUser = async (req, res) => {
     });
     res.status(201).json(user);
   } catch (error) {
-    res.status(500).json({ message: 'Email ja cadastrado' });
+    res.status(500).json({ message: 'Usuário ja cadastrado' });
   }
 };
 

@@ -21,12 +21,13 @@ model Employee {
   employer_id Int
   commission  Float?
   Employer    Employer? @relation(fields: [employerId], references: [id])
-  employerId  Int?
+  employerId  Int?      @unique
 }
 
 model Employer {
   id        Int        @id @default(autoincrement())
   name      String
   email     String     @unique
+  passoword String     @unique
   employees Employee[]
 }
