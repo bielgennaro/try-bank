@@ -1,16 +1,31 @@
+datasource db {
+  provider = "postgresql"
+  url      = "postgre://root:123456@localhost:5432/database"
+}
+
 generator client {
   provider = "prisma-client-js"
 }
 
-datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
+model User {
+  id       Int     @id @default(autoincrement())
+  email    String  @unique
+  name     String?
+  password String
 }
 
-model User {
-  id        Int      @id @default(autoincrement())
-  email     String   @unique
-  name      String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+model Employee {
+  id          Int       @id @default(autoincrement())
+  name        String
+  isWorking   Boolean
+  employer_id Int
+  commission  Float
+  Employer    Employer? @relation(fields: [employerId], references: [id])
+  employerId  Int?
+}
+
+model Employer {
+  id        Int        @id @default(autoincrement())
+  name      String
+  employees Employee[]
 }
