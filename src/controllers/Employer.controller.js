@@ -4,15 +4,17 @@ const prisma = new PrismaClient();
 
 const createEmployer = async (req, res) => {
   try {
-    const { name } = req.body;
+    const { name, email, password } = req.body;
     const employer = await prisma.employer.create({
       data: {
         name,
+        email,
+        password
       },
     });
     res.status(201).json(employer);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ message: 'Empregador já registrado' });
   }
 };
 
@@ -21,7 +23,7 @@ const getEmployers = async (req, res) => {
     const employers = await prisma.employer.findMany();
     res.json(employers);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ message: 'Nenhum empregador cadastrado' });
   }
 };
 
@@ -36,7 +38,7 @@ const getEmployerById = async (req, res) => {
     if (employer) {
       res.json(employer);
     } else {
-      res.status(404).json({ message: 'Employer not found' });
+      res.status(404).json({ message: 'Empregador não encotrado' });
     }
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -46,19 +48,21 @@ const getEmployerById = async (req, res) => {
 const updateEmployer = async (req, res) => {
   try {
     const { employerId } = req.params;
-    const { name } = req.body;
+    const { name, email, password } = req.body;
     const employer = await prisma.employer.update({
       where: {
         id: Number(employerId),
       },
       data: {
         name,
+        password,
+        email
       },
     });
     if (employer) {
       res.json(employer);
     } else {
-      res.status(404).json({ message: 'Employer not found' });
+      res.status(404).json({ message: 'Empregador não encotrado' });
     }
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -74,9 +78,9 @@ const deleteEmployer = async (req, res) => {
       },
     });
     if (employer) {
-      res.json({ message: 'Employer deleted successfully' });
+      res.json({ message: 'Empregador deletado com sucesso' });
     } else {
-      res.status(404).json({ message: 'Employer not found' });
+      res.status(404).json({ message: 'Empregador não encontrado.' });
     }
   } catch (error) {
     res.status(500).json({ error: error.message });

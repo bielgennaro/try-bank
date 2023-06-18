@@ -5,12 +5,12 @@ const prisma = new PrismaClient();
  const createEmployer = async(employerData) => {
     try {
       const employer = await prisma.$queryRaw`
-      INSERT INTO User (name, email)
-      VALUES (${employerData.name}, ${employerData.email});
+      INSERT INTO Employer (name, email, password)
+      VALUES (${employerData.name}, ${employerData.email}, ${employerData.password});
     `;
     return employer;
     } catch (error) {
-      throw new Error(`Failed to create employer: ${error.message}`);
+      throw new Error(`Falha ao criar empregador: ${error.message}`);
     }
   }
 
@@ -21,7 +21,7 @@ const prisma = new PrismaClient();
     `;
     return employer;
     } catch (error) {
-      throw new Error(`Failed to retrieve employers: ${error.message}`);
+      throw new Error(`Falha ao listar empregadores: ${error.message}`);
     }
   }
 
@@ -32,7 +32,7 @@ const prisma = new PrismaClient();
     `;
       return employer;
     } catch (error) {
-      throw new Error(`Failed to retrieve employer: ${error.message}`);
+      throw new Error(`Falha ao encontrar empregador: ${error.message}`);
     }
   }
 
@@ -40,12 +40,12 @@ const prisma = new PrismaClient();
     try {
       const employer = await prisma.$queryRaw`
       UPDATE Employer
-      SET name = ${employerData.name}, email = ${employerData.email}
+      SET name = ${employerData.name}, email = ${employerData.email}, password = ${employerData.password}
       WHERE id = ${employerId};
       `;
       return employer;
     } catch (error) {
-      throw new Error(`Failed to update employer: ${error.message}`);
+      throw new Error(`Falha ao atualizar empregador: ${error.message}`);
     }
   }
 
@@ -56,7 +56,7 @@ const prisma = new PrismaClient();
     `;
       return employer;
     } catch (error) {
-      throw new Error(`Failed to delete employer: ${error.message}`);
+      throw new Error(`Falha ao deletar o empregador: ${error.message}`);
     }
   }
 

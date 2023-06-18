@@ -4,21 +4,18 @@ const prisma = new PrismaClient();
 
 const createEmployee = async (req, res) => {
   try {
-    const { name, isWorking, employerId, commission, email } = req.body;
+    const { name, email, isWorking, employerId } = req.body;
     const employee = await prisma.employee.create({
       data: {
         name,
-        isWorking,
         email,
-        employer: {
-          connect: { id: Number(employerId) },
-        },
-        commission,
+        isWorking,
+        employerId: employerId ? Number(employerId) : undefined,
       },
     });
     res.status(201).json(employee);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ message: 'Funcionário já anexado a um empregador' });
   }
 };
 
@@ -31,7 +28,7 @@ const getEmployees = async (req, res) => {
     });
     res.json(employees);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ message: 'Nenhum funcionário cadastrado' });
   }
 };
 
@@ -43,13 +40,13 @@ const getEmployeeById = async (req, res) => {
         id: Number(employeeId),
       },
       include: {
-        employer: true,
+        Employer: true,
       },
     });
     if (employee) {
       res.json(employee);
     } else {
-      res.status(404).json({ message: 'Employee not found' });
+      res.status(404).json({ message: 'Funcionário não encontrado' });
     }
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -59,27 +56,25 @@ const getEmployeeById = async (req, res) => {
 const updateEmployee = async (req, res) => {
   try {
     const { employeeId } = req.params;
-    const { name, isWorking, employerId, commission } = req.body;
+    const { name, email, isWorking, employerId } = req.body;
     const employee = await prisma.employee.update({
       where: {
         id: Number(employeeId),
       },
       data: {
         name,
+        email,
         isWorking,
-        Employer: {
-          connect: { id: Number(employerId) },
-        },
-        commission,
+        employerId: employerId ? Number(employerId) : undefined,
       },
       include: {
-        employer: true,
+        Employer: true,
       },
     });
     if (employee) {
       res.json(employee);
     } else {
-      res.status(404).json({ message: 'Employee not found' });
+      res.status(404).json({ message: 'Funcionário não encontrado' });
     }
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -95,9 +90,9 @@ const deleteEmployee = async (req, res) => {
       },
     });
     if (employee) {
-      res.json({ message: 'Employee deleted successfully' });
+      res.json({ message: 'Funcionário deletado com sucesso' });
     } else {
-      res.status(404).json({ message: 'Employee not found' });
+      res.status(404).json({ message: 'Funcionário não encontrado' });
     }
   } catch (error) {
     res.status(500).json({ error: error.message });

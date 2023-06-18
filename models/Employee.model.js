@@ -1,120 +1,85 @@
 const createEmployee = async (req, res) => {
+  const { name, isWorking, employerId, email } = req.body;
+
   try {
-    const { name, isWorking, employerId, commission, email } = req.body;
+    const newEmployee = await prisma.$queryRaw(`
+      INSERT INTO "Employee" ("name", "isWorking", "employer_id", "email")
+      VALUES ($1, $2, $3, $4, $5)
+      RETURNING *
+    `, [name, isWorking, employerId, email]);
 
-    const sql = `
-      INSERT INTO Employee (name, isWorking, email, employerId, commission)
-      VALUES (?, ?, ?, ?, ?)
-    `;
-    const params = [name, isWorking, email, employerId, commission];
-
-    await prisma.$queryRaw(sql, params);
-
-    const selectSql = `
-      SELECT e.*, em.*
-      FROM Employee e
-      LEFT JOIN Employer em ON e.employerId = em.id
-      WHERE e.id = ?
-    `;
-
-    const row = await prisma.$queryRaw(selectSql, [prisma.$queryRaw.lastInsertId()]);
-
-    res.status(201).json(row[0]);
+    res.json(newEmployee);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: 'Erro ao criar um novo funcionário.' });
   }
 };
 
+
 const getEmployees = async (req, res) => {
   try {
-    const sql = `
-      SELECT e.*, em.*
-      FROM Employee e
-      LEFT JOIN Employer em ON e.employerId = em.id
-    `;
+    const employees = await prisma.$queryRaw(`
+      SELECT * FROM "Employee"
+    `);
 
-    const rows = await prisma.$queryRaw(sql);
-
-    res.json(rows);
+    res.json(employees);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: 'Erro ao obter os funcionários.' });
   }
 };
 
 const getEmployeeById = async (req, res) => {
+  const { id } = req.params;
+
   try {
-    const { employeeId } = req.params;
+    const employee = await prisma.$queryRaw(`
+      SELECT * FROM "Employee"
+      WHERE "id" = $1
+    `, [id]);
 
-    const sql = `
-      SELECT e.*, em.*
-      FROM Employee e
-      LEFT JOIN Employer em ON e.employerId = em.id
-      WHERE e.id = ?
-    `;
-
-    const row = await prisma.$queryRaw(sql, [employeeId]);
-
-    if (row.length > 0) {
-      res.json(row[0]);
-    } else {
-      res.status(404).json({ message: 'Employee not found' });
+    if (employee.length === 0) {
+      return res.status(404).json({ error: 'Funcionário não encontrado.' });
     }
+
+    res.json(employee[0]);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: 'Erro ao obter o funcionário.' });
   }
 };
 
 const updateEmployee = async (req, res) => {
+  const { employeeId } = req.params;
+  const { name, isWorking, employerId, commission, email } = req.body;
+
   try {
-    const { employeeId } = req.params;
-    const { name, isWorking, employerId, commission } = req.body;
+    const updatedEmployee = await prisma.$queryRaw(`
+      UPDATE "Employee"
+      SET "name" = $1, "isWorking" = $2, "employer_id" = $3, "commission" = $4, "email" = $5
+      WHERE "id" = $6
+      RETURNING *
+    `, [name, isWorking, employerId, commission, email, employeeId]);
 
-    const sql = `
-      UPDATE Employee
-      SET name = ?, isWorking = ?, employerId = ?, commission = ?
-      WHERE id = ?
-    `;
-    const params = [name, isWorking, employerId, commission, employeeId];
-
-    await prisma.$queryRaw(sql, params);
-
-    const selectSql = `
-      SELECT e.*, em.*
-      FROM Employee e
-      LEFT JOIN Employer em ON e.employerId = em.id
-      WHERE e.id = ?
-    `;
-
-    const row = await prisma.$queryRaw(selectSql, [employeeId]);
-
-    if (row.length > 0) {
-      res.json(row[0]);
-    } else {
-      res.status(404).json({ message: 'Employee not found' });
+    if (updatedEmployee.length === 0) {
+      return res.status(404).json({ error: 'Funcionário não encontrado.' });
     }
+
+    res.json(updatedEmployee[0]);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: 'Erro ao atualizar o funcionário.' });
   }
 };
 
 const deleteEmployee = async (req, res) => {
+  const { id } = req.params;
+
   try {
-    const { employeeId } = req.params;
+    await prisma.$queryRaw(`
+      DELETE FROM "Employee"
+      WHERE "id" = $1
+    `, [id]);
 
-    const sql = `
-      DELETE FROM Employee
-      WHERE id = ?
-    `;
-
-    await prisma.$queryRaw(sql, [employeeId]);
-
-    if (prisma.$queryRaw.affectedRows() > 0) {
-      res.json({ message: 'Employee deleted successfully' });
-    } else {
-      res.status(404).json({ message: 'Employee not found' });
-    }
+    res.json({ message: 'Funcionário excluído com sucesso.' });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: 'Erro ao excluir o funcionário.' });
   }
 };
 

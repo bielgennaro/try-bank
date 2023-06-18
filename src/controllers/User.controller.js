@@ -22,7 +22,7 @@ const getUsers = async (req, res) => {
     const users = await prisma.user.findMany();
     res.json(users);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ message: 'Nenhum usuário cadastrado'});
   }
 };
 
@@ -37,7 +37,7 @@ const getUserById = async (req, res) => {
     if (user) {
       res.json(user);
     } else {
-      res.status(404).json({ message: 'User not found' });
+      res.status(404).json({ message: 'Usuário não encontrado' });
     }
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -61,7 +61,7 @@ const updateUser = async (req, res) => {
     if (user) {
       res.json(user);
     } else {
-      res.status(404).json({ message: 'User not found' });
+      res.status(404).json({ message: 'Usuário não encontrado' });
     }
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -77,9 +77,9 @@ const deleteUser = async (req, res) => {
       },
     });
     if (user) {
-      res.json({ message: 'User deleted successfully' });
+      res.json({ message: 'Usuário deletado com sucesso.' });
     } else {
-      res.status(404).json({ message: 'User not found' });
+      res.status(404).json({ message: 'Usuário não encontrado' });
     }
   } catch (error) {
     res.status(500).json({ error: error.message });
