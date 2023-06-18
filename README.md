@@ -20,7 +20,7 @@ A API tem três tabelas, User, Employer, Employees. Abaixo estará especificado 
 | `id`      | `integer` | Lista o usuário referente ao ID recebido |
 
 ```http
-  GET /users/create
+  POST /users/create
 ```
 
 | Parâmetro   | Tipo       | Descrição                                   |
@@ -29,15 +29,15 @@ A API tem três tabelas, User, Employer, Employees. Abaixo estará especificado 
 
 
 ```http
-  GET /users/update/${id}
+  PUT /users/update/${id}
 ```
 
 | Parâmetro   | Tipo       | Descrição                                   |
 | :---------- | :--------- | :------------------------------------------ |
-| `id, email, name, password`      | `integer, string` | Atualiza um usuário referente ao ID passado |
+| `id, email, name, password`      | `integer, string, string, string` | Atualiza um usuário referente ao ID passado |
 
 ```http
-  GET /users/delete/${id}
+  DEL /users/delete/${id}
 ```
 
 | Parâmetro   | Tipo       | Descrição                                   |
@@ -63,16 +63,16 @@ A API tem três tabelas, User, Employer, Employees. Abaixo estará especificado 
 | `id`      | `integer` | Lista o empregador referente ao ID recebido |
 
 ```http
-  GET /employers/contract
+  POST /employers/contract
 ```
 
 | Parâmetro   | Tipo       | Descrição                                   |
 | :---------- | :--------- | :------------------------------------------ |
-| `id`      | `integer` | Registra um empregador no banco de dados |
+| `name, email, password`      | `string, string, string` | Registra um empregador no banco de dados |
 
 
 ```http
-  GET /employers/update/${id}
+  PUT /employers/update/${id}
 ```
 
 | Parâmetro   | Tipo       | Descrição                                   |
@@ -80,7 +80,7 @@ A API tem três tabelas, User, Employer, Employees. Abaixo estará especificado 
 | `id, email, name, password`      | `integer, string` | Atualiza um empregador referente ao ID passado |
 
 ```http
-  GET /employers/delete/${id}
+  DEL /employers/delete/${id}
 ```
 
 | Parâmetro   | Tipo       | Descrição                                   |
@@ -106,7 +106,7 @@ A API tem três tabelas, User, Employer, Employees. Abaixo estará especificado 
 | `id`      | `integer` | Lista o funcionário referente ao ID recebido |
 
 ```http
-  GET /employees/register
+  POST /employees/register
 ```
 
 | Parâmetro   | Tipo       | Descrição                                   |
@@ -115,7 +115,7 @@ A API tem três tabelas, User, Employer, Employees. Abaixo estará especificado 
 
 
 ```http
-  GET /employees/update/${id}
+  PUT /employees/update/${id}
 ```
 
 | Parâmetro   | Tipo       | Descrição                                   |
@@ -123,16 +123,9 @@ A API tem três tabelas, User, Employer, Employees. Abaixo estará especificado 
 | `id, email, name, password`      | `integer, string, string, string` | Atualiza um funcionário referente ao ID passado |
 
 ```http
-  GET /employees/delete/${id}
+  DEL /employees/delete/${id}
 ```
 
 | Parâmetro   | Tipo       | Descrição                                   |
 | :---------- | :--------- | :------------------------------------------ |
 | `id`      | `Integer` | Deleta um funcionário |
-
-
-
-
-
-
-
