@@ -111,7 +111,7 @@ A API tem três tabelas, User, Employer, Employees. Abaixo estará especificado 
 
 | Parâmetro   | Tipo       | Descrição                                   |
 | :---------- | :--------- | :------------------------------------------ |
-| `name, email, isWorking, employerId`      | `string, string, boolean, integer` | Registra um funcionário no banco de dados | **OBRIGATÓRIO** Existir um empregado registrado no campo `employerId` |
+| `name, email, isWorking, employerId`      | `string, string, boolean, integer` | Registra um funcionário no banco de dados - **OBRIGATÓRIO** Existir um empregado registrado no campo `employerId` |
 
 
 ```http
@@ -129,3 +129,10 @@ A API tem três tabelas, User, Employer, Employees. Abaixo estará especificado 
 | Parâmetro   | Tipo       | Descrição                                   |
 | :---------- | :--------- | :------------------------------------------ |
 | `id`      | `Integer` | Deleta um funcionário |
+
+
+
+
+
+
+
