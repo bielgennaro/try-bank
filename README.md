@@ -141,8 +141,6 @@ A API tem quatro tabelas, User, Employer, Employees e Manager. Abaixo estará es
 | :---------- | :--------- | :---------------------------------- |
 | `api_key` | `string` | Lista todos os gerentes  |
 
-#### Retorna um item
-
 ```http
   GET /manager/list/${id}
 ```
@@ -174,11 +172,3 @@ A API tem quatro tabelas, User, Employer, Employees e Manager. Abaixo estará es
 | Parâmetro   | Tipo       | Descrição                                   |
 | :---------- | :--------- | :------------------------------------------ |
 | `id`      | `integer` |Deleta o gerente na qual se refere o ID recebido |
-
-
-
-
-
-
-
-
