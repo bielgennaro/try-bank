@@ -36,9 +36,6 @@ CREATE TABLE "Manager" (
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "User_password_key" ON "User"("password");
-
--- CreateIndex
 CREATE UNIQUE INDEX "Employee_email_key" ON "Employee"("email");
 
 -- CreateIndex
@@ -48,10 +45,4 @@ CREATE UNIQUE INDEX "Employee_employerId_key" ON "Employee"("employerId");
 CREATE UNIQUE INDEX "Employer_email_key" ON "Employer"("email");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Employer_password_key" ON "Employer"("password");
-
--- CreateIndex
 CREATE UNIQUE INDEX "Manager_email_key" ON "Manager"("email");
-
--- CreateIndex
-CREATE UNIQUE INDEX "Manager_password_key" ON "Manager"("password");
