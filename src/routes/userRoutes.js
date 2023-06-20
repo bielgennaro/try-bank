@@ -1,12 +1,12 @@
-var express = require('express')
-var antedeguemon = express.Router()
+const express = require('express')
+const routes = express.Router()
 
 const userController = require('../controllers/User.controller')
 
-antedeguemon.get('/', userController.getUsers)
-antedeguemon.get('/list/:userId', userController.getUserById)
-antedeguemon.post('/create',userController.createUser)
-antedeguemon.put('/update/:userId', userController.updateUser)
-antedeguemon.delete('/delete/:userId', userController.deleteUser)
+routes.get('/', userController.getUsers)
+routes.get('/:userId', userController.getUserById)
+routes.post('/create', userController.createUser)
+routes.put('/update/:userId', userController.updateUser)
+routes.delete('/delete/:userId', userController.deleteUser)
 
-module.exports = antedeguemon
+module.exports = routes

@@ -1,10 +1,9 @@
-const { PrismaClient } = require('@prisma/client');
-
-const prisma = new PrismaClient();
+const { PrismaClient } = require('@prisma/client')
+const prisma = new PrismaClient()
 
 const createEmployee = async (req, res) => {
   try {
-    const { name, email, isWorking, employerId } = req.body;
+    const { name, email, isWorking, employerId } = req.body
     const employee = await prisma.employee.create({
       data: {
         name,
@@ -12,12 +11,12 @@ const createEmployee = async (req, res) => {
         isWorking,
         employerId: employerId ? Number(employerId) : undefined,
       },
-    });
-    res.status(201).json(employee);
+    })
+    res.status(201).json(employee)
   } catch (error) {
-    res.status(500).json({ message: 'Funcionário já anexado a um empregador' });
+    res.status(500).json({ message: 'Funcionário já anexado a um empregador' })
   }
-};
+}
 
 const getEmployees = async (req, res) => {
   try {
@@ -25,16 +24,16 @@ const getEmployees = async (req, res) => {
       include: {
         Employer: true,
       },
-    });
-    res.json(employees);
+    })
+    res.json(employees)
   } catch (error) {
-    res.status(500).json({ message: 'Nenhum funcionário cadastrado' });
+    res.status(500).json({ message: 'Nenhum funcionário cadastrado' })
   }
-};
+}
 
 const getEmployeeById = async (req, res) => {
   try {
-    const { employeeId } = req.params;
+    const { employeeId } = req.params
     const employee = await prisma.employee.findUnique({
       where: {
         id: Number(employeeId),
@@ -42,21 +41,21 @@ const getEmployeeById = async (req, res) => {
       include: {
         Employer: true,
       },
-    });
+    })
     if (employee) {
-      res.json(employee);
+      res.json(employee)
     } else {
-      res.status(404).json({ message: 'Funcionário não encontrado' });
+      res.status(404).json({ message: 'Funcionário não encontrado' })
     }
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: error.message })
   }
-};
+}
 
 const updateEmployee = async (req, res) => {
   try {
-    const { employeeId } = req.params;
-    const { name, email, isWorking, employerId } = req.body;
+    const { employeeId } = req.params
+    const { name, email, isWorking, employerId } = req.body
     const employee = await prisma.employee.update({
       where: {
         id: Number(employeeId),
@@ -70,34 +69,34 @@ const updateEmployee = async (req, res) => {
       include: {
         Employer: true,
       },
-    });
+    })
     if (employee) {
-      res.json(employee);
+      res.json(employee)
     } else {
-      res.status(404).json({ message: 'Funcionário não encontrado' });
+      res.status(404).json({ message: 'Funcionário não encontrado' })
     }
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: error.message })
   }
-};
+}
 
 const deleteEmployee = async (req, res) => {
   try {
-    const { employeeId } = req.params;
+    const { employeeId } = req.params
     const employee = await prisma.employee.delete({
       where: {
         id: Number(employeeId),
       },
-    });
+    })
     if (employee) {
-      res.json({ message: 'Funcionário deletado com sucesso' });
+      res.json({ message: 'Funcionário deletado com sucesso' })
     } else {
-      res.status(404).json({ message: 'Funcionário não encontrado' });
+      res.status(404).json({ message: 'Funcionário não encontrado' })
     }
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: error.message })
   }
-};
+}
 
 module.exports = {
   createEmployee,
@@ -105,4 +104,4 @@ module.exports = {
   getEmployeeById,
   updateEmployee,
   deleteEmployee,
-};
+}

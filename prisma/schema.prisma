@@ -8,19 +8,19 @@ generator client {
 }
 
 model User {
-  id       Int     @id @default(autoincrement())
-  email    String  @unique
-  name     String?
-  password String  @unique
+  id       Int    @id @default(autoincrement())
+  email    String @unique
+  name     String
+  password String @unique
 }
 
 model Employee {
-  id         Int       @id @default(autoincrement())
+  id         Int      @id @default(autoincrement())
   name       String
-  email      String    @unique
-  isWorking  Boolean   @default(false)
-  Employer   Employer? @relation(fields: [employerId], references: [id])
-  employerId Int?      @unique
+  email      String   @unique
+  isWorking  Boolean  @default(false)
+  Employer   Employer @relation(fields: [employerId], references: [id])
+  employerId Int      @unique
 }
 
 model Employer {
@@ -29,4 +29,11 @@ model Employer {
   email     String     @unique
   password  String     @unique
   employees Employee[]
+}
+
+model Manager {
+  id       Int    @id @default(autoincrement())
+  name     String
+  email    String @unique
+  password String @unique
 }

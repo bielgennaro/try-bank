@@ -1,12 +1,12 @@
-var express = require('express')
-var antedeguemon = express.Router()
+const express = require('express')
+const routes = express.Router()
 
 const employeeController = require('../controllers/Employee.controller')
 
-antedeguemon.get('/', employeeController.getEmployees)
-antedeguemon.get('/list/:employeeId', employeeController.getEmployeeById)
-antedeguemon.post('/register', employeeController.createEmployee)
-antedeguemon.put('/update/:employeeId', employeeController.updateEmployee)
-antedeguemon.delete('/delete/:employeeId', employeeController.deleteEmployee)
+routes.get('/', employeeController.getEmployees)
+routes.get('/:employeeId', employeeController.getEmployeeById)
+routes.post('/register', employeeController.createEmployee)
+routes.put('/update/:employeeId', employeeController.updateEmployee)
+routes.delete('/delete/:employeeId', employeeController.deleteEmployee)
 
-module.exports = antedeguemon
+module.exports = routes

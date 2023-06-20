@@ -1,5 +1,5 @@
-const { PrismaClient } = require('@prisma/client');
-const prisma = new PrismaClient();
+const { PrismaClient } = require('@prisma/client')
+const prisma = new PrismaClient()
 
 const createUser = async (userData) => {
   try {
@@ -7,34 +7,34 @@ const createUser = async (userData) => {
       INSERT INTO "User" (name, email)
       VALUES (${userData.name}, ${userData.email})
       RETURNING *;
-    `;
-    return user;
+    `
+    return user
   } catch (error) {
-    throw new Error(`Falha ao criar usuário: ${error.message}`);
+    throw new Error(`Falha ao criar usuário: ${error.message}`)
   }
-};
+}
 
 const getUsers = async () => {
   try {
     const users = await prisma.$queryRaw`
       SELECT * FROM "User";
-    `;
-    return users;
+    `
+    return users
   } catch (error) {
-    throw new Error(`Falha ao buscar usuários: ${error.message}`);
+    throw new Error(`Falha ao buscar usuários: ${error.message}`)
   }
-};
+}
 
 const getUserById = async (userId) => {
   try {
     const user = await prisma.$queryRaw`
       SELECT * FROM "User" WHERE id = ${userId};
-    `;
-    return user;
+    `
+    return user
   } catch (error) {
-    throw new Error(`Nenhum usuário encontrado: ${error.message}`);
+    throw new Error(`Nenhum usuário encontrado: ${error.message}`)
   }
-};
+}
 
 const updateUser = async (userId, userData) => {
   try {
@@ -43,24 +43,24 @@ const updateUser = async (userId, userData) => {
       SET name = ${userData.name}, email = ${userData.email}
       WHERE id = ${userId}
       RETURNING *;
-    `;
-    return user;
+    `
+    return user
   } catch (error) {
-    throw new Error(`Nenhum usuário encontrado: ${error.message}`);
+    throw new Error(`Nenhum usuário encontrado: ${error.message}`)
   }
-};
+}
 
 const deleteUser = async (userId) => {
   try {
     const user = await prisma.$queryRaw`
       DELETE FROM "User" WHERE id = ${userId}
       RETURNING *;
-    `;
-    return user;
+    `
+    return user
   } catch (error) {
-    throw new Error(`Falha ao deletar usuário: ${error.message}`);
+    throw new Error(`Falha ao deletar usuário: ${error.message}`)
   }
-};
+}
 
 module.exports = {
   createUser,
@@ -68,4 +68,4 @@ module.exports = {
   getUserById,
   updateUser,
   deleteUser,
-};
+}
