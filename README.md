@@ -1,6 +1,6 @@
 
 ## Documentação da API
-A API tem três tabelas, User, Employer, Employees. Abaixo estará especificado como usar as rotas e sua descrição.
+A API tem quatro tabelas, User, Employer, Employees e Manager. Abaixo estará especificado como usar as rotas e sua descrição.
 # Rotas Users
 
 ```http
