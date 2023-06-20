@@ -131,6 +131,52 @@ A API tem três tabelas, User, Employer, Employees. Abaixo estará especificado 
 | `id`      | `Integer` | Deleta um funcionário |
 
 
+# Rotas Manager
+
+```http
+  GET /manager/
+```
+
+| Parâmetro   | Tipo       | Descrição                           |
+| :---------- | :--------- | :---------------------------------- |
+| `api_key` | `string` | Lista todos os gerentes  |
+
+#### Retorna um item
+
+```http
+  GET /manager/list/${id}
+```
+
+| Parâmetro   | Tipo       | Descrição                                   |
+| :---------- | :--------- | :------------------------------------------ |
+| `id`      | `integer` | Lista todos os gerentes cadastrados no ID recebido |
+
+```http
+  POST /manager/register/
+```
+
+| Parâmetro   | Tipo       | Descrição                                   |
+| :---------- | :--------- | :------------------------------------------ |
+| `name, email, password`      | `string, string, string` |Cadastra um novo gerente no banco de dados |
+
+```http
+  PUT /manager/update/${id}
+```
+
+| Parâmetro   | Tipo       | Descrição                                   |
+| :---------- | :--------- | :------------------------------------------ |
+| `id, name, email, password`      | `integer, string, string, string` |Atualiza os dados do ID recebido |
+
+```http
+  DEL /manager/delete/${id}
+```
+
+| Parâmetro   | Tipo       | Descrição                                   |
+| :---------- | :--------- | :------------------------------------------ |
+| `id`      | `integer` |Deleta o gerente na qual se refere o ID recebido |
+
+
+
 
 
 
