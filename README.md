@@ -152,7 +152,7 @@ A API tem quatro tabelas, User, Employer, Employees e Manager. Abaixo estará es
 | `id`      | `integer` | Lista todos os gerentes cadastrados no ID recebido |
 
 ```http
-  POST /manager/register/
+  POST /manager/register
 ```
 
 | Parâmetro   | Tipo       | Descrição                                   |
